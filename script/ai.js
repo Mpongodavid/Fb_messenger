@@ -1,37 +1,44 @@
+const fonts = {
+  a: "𝖺", b: "𝖻", c: "𝖼", d: "𝖽", e: "𝖾", f: "𝖿", g: "𝗀", h: "𝗁",
+  i: "𝗂", j: "𝗃", k: "𝗄", l: "𝗅", m: "𝗆", n: "𝗇", o: "𝗈", 
+  p: "𝗉", q: "𝗊", r: "𝗋", s: "𝗌", t: "𝗍", u: "𝗎", v: "𝗏", 
+  w: "𝗐", x: "𝗑", y: "𝗒", z: "𝗓" 
+};
+
 const axios = require('axios');
 
 module.exports.config = {
-  name: 'ai',
-  version: '1.0.0',
-  role: 0,
+  name: "ai",
+  version: 1.0,
+  credits: "aesther",//Api OtinXsandip
+  description: "AI",
   hasPrefix: false,
-  aliases: ['gpt', 'openai'],
-  description: "An AI command powered by GPT-4",
-  usage: "Ai [promot]",
-  credits: 'Developer',
-  cooldown: 3,
+  usages: "{pn} [prompt]",
+  aliases: ["ai2", "bot"],
+  cooldown: 0,
 };
 
-module.exports.run = async function({ api, event, args }) {
-  const input = args.join(' ');
-  if (!input) {
-    api.sendMessage(`𝕤𝕒𝕝𝕦𝕥 𝕞𝕠𝕚 𝕔𝕖 𝔻𝕒𝕧𝕚𝕕 ✨ 
-
-━━━━━━━━━━━━━━━
-
- 𝑷𝑳𝑬𝑨𝑺𝑬 𝑷𝑹𝑶𝑽𝑰𝑫𝑬 𝑨 𝑸𝑼𝑬𝑺𝑻𝑰𝑶𝑵/𝑸𝑼𝑬𝑹𝒀`, event.threadID, event.messageID);
-    return;
-  }
-
-  api.sendMessage(`🔍𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩....
-━━━━━━━━━━━━━━━━━━\n\n "${input}"`, event.threadID, event.messageID);
-
+module.exports.run = async function ({ api, event, args }) {
   try {
-    const { data } = await axios.get(`https://openaikey-x20f.onrender.com/api?prompt=${encodeURIComponent(input)}`);
-    const response = data.response;
-    const modifiedResponse = `${response}\n\n𝘛𝘩𝘪𝘴 𝘣𝘰𝘵 𝘸𝘢𝘴 𝘤𝘳𝘦𝘢𝘵𝘦𝘥 𝘣𝘺 𝘤𝘩𝘶𝘳𝘤𝘩𝘪𝘭𝘭\n𝐃𝐞𝐯 𝐥𝐢𝐧𝐤: https://www.facebook.com/Churchill.Dev4100`;
-    api.sendMessage(modifiedResponse, event.threadID, event.messageID);
+    const prompt = args.join(" ");
+    if (!prompt) {
+      await api.sendMessage("𝔻𝕒𝕧𝕚𝕕✰ ✦\n━━━━━━━━━━━\n Hey master how can help you ?", event.threadID);
+      return;
+    }
+    const response = await axios.get(`https://sandipbaruwal.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
+    const answer = response.data.answer;
+
+    let formattedAnswer = "";
+    for (let char of answer) {
+      if (fonts[char.toLowerCase()]) {
+        formattedAnswer += fonts[char.toLowerCase()];
+      } else {
+        formattedAnswer += char;
+      }
+    }
+
+    await api.sendMessage(`𝔻𝕒𝕧𝕚𝕕✰ ✦ \n━━━━━━━━━━━\n${formattedAnswer} ☕`, event.threadID);
   } catch (error) {
-    api.sendMessage('An error occurred while processing your request.', event.threadID, event.messageID);
+    console.error("Error:", error.message);
   }
-};
+};￼Enter
