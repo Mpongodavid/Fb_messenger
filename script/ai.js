@@ -15,7 +15,7 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args }) {
   const input = args.join(' ');
   if (!input) {
-    api.sendMessage(`𝑯𝑬𝑳𝑳𝑶 𝑰𝑴 𝑨𝑰 ✨ 
+    api.sendMessage(`𝕤𝕒𝕝𝕦𝕥 𝕞𝕠𝕚 𝕔𝕖 𝔻𝕒𝕧𝕚𝕕 ✨ 
 
 ━━━━━━━━━━━━━━━
 
